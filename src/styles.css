@@ -19,6 +19,11 @@
  */
 
 @theme inline {
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-sans: "DM Sans", system-ui, sans-serif;
+  --shadow-header: 0 2px 12px oklch(0.2 0.03 30 / 8%);
+  --shadow-card: 0 1px 3px oklch(0.2 0.03 30 / 8%);
+  --shadow-card-hover: 0 12px 28px oklch(0.2 0.03 30 / 14%);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
