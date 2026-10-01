@@ -6,6 +6,7 @@ import { Loader2 } from "lucide-react";
 
 import { Header } from "@/components/news/Header";
 import { Footer } from "@/components/news/Footer";
+import { FeaturedNews } from "@/components/news/FeaturedNews";
 import { NewsList } from "@/components/news/NewsList";
 import { NewsDetail } from "@/components/news/NewsDetail";
 import { fetchNews, type Article } from "@/lib/news.functions";
@@ -35,6 +36,7 @@ function Index() {
   const [category, setCategory] = useState("technology");
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<Article | null>(null);
+  const [page, setPage] = useState(1);
 
   const getNews = useServerFn(fetchNews);
   const { data, isPending, error } = useQuery({
@@ -49,15 +51,17 @@ function Index() {
         onCategoryChange={(c) => {
           setCategory(c);
           setSelected(null);
+          setPage(1);
         }}
         query={query}
         onSearch={(q) => {
           setQuery(q);
           setSelected(null);
+          setPage(1);
         }}
       />
 
-      <main className="mx-auto w-full max-w-6xl flex-1 px-5 py-8">
+      <main className="mx-auto w-full max-w-6xl flex-1 px-5 py-8 sm:py-10">
         {selected ? (
           <NewsDetail article={selected} onBack={() => setSelected(null)} />
         ) : isPending ? (
@@ -74,7 +78,17 @@ function Index() {
             Nenhuma notícia encontrada para essa busca.
           </p>
         ) : (
-          <NewsList articles={data} onOpen={setSelected} />
+          <>
+            <FeaturedNews article={data[0]} onOpen={setSelected} />
+            {data.length > 1 ? (
+              <NewsList
+                articles={data.slice(1)}
+                onOpen={setSelected}
+                page={page}
+                onPageChange={setPage}
+              />
+            ) : null}
+          </>
         )}
       </main>
 
