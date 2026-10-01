@@ -7,9 +7,11 @@ export function FeaturedNews({
   article,
   onOpen,
 }: {
-  article: Article;
+  article: Article | undefined;
   onOpen: (article: Article) => void;
 }) {
+  if (!article) return null;
+
   const date = article.publishedAt
     ? new Date(article.publishedAt).toLocaleDateString("pt-BR", {
         day: "2-digit",
