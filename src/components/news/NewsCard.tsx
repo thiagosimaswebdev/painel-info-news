@@ -1,4 +1,5 @@
 import type { Article } from "@/lib/news.functions";
+import { Button } from "@/components/ui/button";
 
 export function NewsCard({
   article,
@@ -34,12 +35,12 @@ export function NewsCard({
         <p className="line-clamp-3 text-sm text-muted-foreground">
           {article.description ?? "Resumo não disponível."}
         </p>
-        <button
+        <Button
           onClick={() => onOpen(article)}
-          className="mt-auto self-start rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90 active:scale-95"
+          className="mt-auto self-start"
         >
-          Ver mais
-        </button>
+          Ler mais
+        </Button>
       </div>
     </article>
   );
