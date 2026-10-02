@@ -44,14 +44,14 @@ export function NewsList({
         </p>
       </div>
 
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="news-list__grid">
         {visibleArticles.map((article) => (
           <NewsCard key={article.id} article={article} onOpen={onOpen} />
         ))}
       </div>
 
       {totalPages > 1 ? (
-        <nav className="mt-10 flex flex-wrap items-center justify-center gap-2" aria-label="Paginação das notícias">
+        <nav className="news-list__pagination mt-10" aria-label="Paginação das notícias">
           <Button
             variant="outline"
             onClick={() => changePage(safePage - 1)}

@@ -28,13 +28,13 @@ export function FeaturedNews({
         <p className="text-xs font-bold uppercase tracking-wider text-primary">Em destaque</p>
       </div>
 
-      <article className="grid overflow-hidden rounded-lg border border-border bg-card shadow-card md:grid-cols-[minmax(0,1.15fr)_minmax(20rem,0.85fr)]">
+      <article className="featured grid overflow-hidden rounded-lg border border-border bg-card shadow-card md:grid-cols-[minmax(0,1.15fr)_minmax(20rem,0.85fr)]">
         <div className="aspect-[16/10] min-h-64 overflow-hidden bg-muted md:aspect-auto">
           {article.image ? (
             <img
               src={article.image}
               alt={article.title}
-              className="size-full object-cover"
+              className="featured__image size-full object-cover"
             />
           ) : (
             <div className="flex size-full items-center justify-center text-sm text-muted-foreground">

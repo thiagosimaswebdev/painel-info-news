@@ -2,13 +2,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { Loader2 } from "lucide-react";
 
-import { Header } from "@/components/news/Header";
-import { Footer } from "@/components/news/Footer";
-import { FeaturedNews } from "@/components/news/FeaturedNews";
-import { NewsList } from "@/components/news/NewsList";
-import { NewsDetail } from "@/components/news/NewsDetail";
+import { Header } from "@/components/Header/Header";
+import { Footer } from "@/components/Footer/Footer";
+import { Main } from "@/components/Main/Main";
 import { fetchNews, type Article } from "@/lib/news.functions";
 
 export const Route = createFileRoute("/")({
@@ -61,36 +58,15 @@ function Index() {
         }}
       />
 
-      <main className="mx-auto w-full max-w-6xl flex-1 px-5 py-8 sm:py-10">
-        {selected ? (
-          <NewsDetail article={selected} onBack={() => setSelected(null)} />
-        ) : isPending ? (
-          <div className="flex flex-col items-center gap-3 py-24 text-muted-foreground">
-            <Loader2 className="size-8 animate-spin text-primary" />
-            <p className="text-sm">Carregando notícias...</p>
-          </div>
-        ) : error ? (
-          <p className="rounded-xl border border-destructive/30 bg-destructive/10 p-6 text-center text-sm text-destructive">
-            Não foi possível carregar as notícias. Tente novamente em instantes.
-          </p>
-        ) : !data || data.length === 0 ? (
-          <p className="py-24 text-center text-muted-foreground">
-            Nenhuma notícia encontrada para essa busca.
-          </p>
-        ) : (
-          <>
-            <FeaturedNews article={data[0]} onOpen={setSelected} />
-            {data.length > 1 ? (
-              <NewsList
-                articles={data.slice(1)}
-                onOpen={setSelected}
-                page={page}
-                onPageChange={setPage}
-              />
-            ) : null}
-          </>
-        )}
-      </main>
+      <Main
+        articles={data}
+        isPending={isPending}
+        error={error}
+        selected={selected}
+        onSelect={setSelected}
+        page={page}
+        onPageChange={setPage}
+      />
 
       <Footer />
     </div>

@@ -18,7 +18,7 @@ export function NewsDetail({
     : null;
 
   return (
-    <article className="mx-auto max-w-3xl">
+    <article className="news-detail">
       <button
         onClick={onBack}
         className="mb-6 inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition hover:text-primary"
