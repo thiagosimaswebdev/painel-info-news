@@ -40,7 +40,7 @@ src/
 │   ├── NewsCard/     NewsCard.tsx + NewsCard.css
 │   ├── NewsDetail/   NewsDetail.tsx + NewsDetail.css
 │   └── ui/           componentes de interface reutilizáveis
-├── lib/news.functions.ts   busca na NewsAPI (função de servidor)
+├── lib/news.functions.ts   busca na NewsData.io (função de servidor)
 ├── routes/
 │   ├── __root.tsx    layout raiz (equivalente ao main.jsx)
 │   └── index.tsx     página principal (equivalente ao App.jsx)
