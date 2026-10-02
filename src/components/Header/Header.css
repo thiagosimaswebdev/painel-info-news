@@ -1,0 +1,4 @@
+/* Header fixo com sombra leve */
+.header { position: sticky; top: 0; z-index: 40; box-shadow: var(--shadow-header); }
+.header__category { transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease; }
+.header__category:active { transform: scale(0.96); }

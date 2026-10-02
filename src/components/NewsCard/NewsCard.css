@@ -1,0 +1,5 @@
+/* Card de notícia com imagem destacada */
+.news-card { transition: transform 0.25s ease, box-shadow 0.25s ease; box-shadow: var(--shadow-card); }
+.news-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-card-hover); }
+.news-card__image { transition: transform 0.5s ease; }
+.news-card:hover .news-card__image { transform: scale(1.05); }

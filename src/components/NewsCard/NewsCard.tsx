@@ -1,3 +1,4 @@
+import "./NewsCard.css";
 import type { Article } from "@/lib/news.functions";
 import { Button } from "@/components/ui/button";
 
@@ -9,14 +10,14 @@ export function NewsCard({
   onOpen: (a: Article) => void;
 }) {
   return (
-    <article className="group flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-card transition hover:-translate-y-1 hover:shadow-card-hover">
+    <article className="news-card flex flex-col overflow-hidden rounded-xl border border-border bg-card">
       <div className="aspect-[16/9] overflow-hidden bg-muted">
         {article.image ? (
           <img
             src={article.image}
             alt={article.title}
             loading="lazy"
-            className="size-full object-cover transition duration-500 group-hover:scale-105"
+            className="news-card__image size-full object-cover"
           />
         ) : (
           <div className="flex size-full items-center justify-center text-sm text-muted-foreground">

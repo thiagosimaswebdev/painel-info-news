@@ -1,3 +1,4 @@
+import "./Header.css";
 import { Search } from "lucide-react";
 import { useState, type FormEvent } from "react";
 
@@ -23,7 +24,7 @@ export function Header({ category, onCategoryChange, query, onSearch }: Props) {
   }
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-card shadow-header">
+    <header className="header border-b border-border bg-card">
       <div className="mx-auto flex max-w-6xl flex-col gap-4 px-5 py-4 md:flex-row md:items-center md:justify-between">
         <button
           onClick={() => {
@@ -52,7 +53,7 @@ export function Header({ category, onCategoryChange, query, onSearch }: Props) {
           <button
             key={c.id}
             onClick={() => onCategoryChange(c.id)}
-            className={`whitespace-nowrap rounded-full px-4 py-1.5 text-sm font-medium transition ${
+            className={`header__category whitespace-nowrap rounded-full px-4 py-1.5 text-sm font-medium transition ${
               category === c.id
                 ? "bg-primary text-primary-foreground"
                 : "bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground"

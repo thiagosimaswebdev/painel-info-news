@@ -1,0 +1,4 @@
+/* Área principal: lista ou detalhe */
+.main { width: 100%; max-width: 72rem; margin-inline: auto; flex: 1; padding: 2rem 1.25rem; }
+@media (min-width: 640px) { .main { padding-block: 2.5rem; } }
+.main__spinner { animation: spin 1s linear infinite; color: var(--primary); }
