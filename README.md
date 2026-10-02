@@ -32,14 +32,19 @@ Oferecer um painel limpo e responsivo que exibe notícias em tempo real, com fil
 ```
 src/
 ├── components/
-│   ├── news/        Header, Footer, FeaturedNews, NewsList, NewsCard, NewsDetail
-│   └── ui/          componentes de interface reutilizáveis (botões etc.)
-├── lib/
-│   └── news.functions.ts   busca na NewsAPI (função de servidor)
+│   ├── Header/       Header.tsx + Header.css
+│   ├── Main/         Main.tsx + Main.css
+│   ├── Footer/       Footer.tsx + Footer.css
+│   ├── FeaturedNews/ FeaturedNews.tsx + FeaturedNews.css
+│   ├── NewsList/     NewsList.tsx + NewsList.css
+│   ├── NewsCard/     NewsCard.tsx + NewsCard.css
+│   ├── NewsDetail/   NewsDetail.tsx + NewsDetail.css
+│   └── ui/           componentes de interface reutilizáveis
+├── lib/news.functions.ts   busca na NewsAPI (função de servidor)
 ├── routes/
-│   ├── __root.tsx   layout raiz
-│   └── index.tsx    página principal (equivalente ao Main/App)
-└── styles.css       estilos globais e tokens de design
+│   ├── __root.tsx    layout raiz (equivalente ao main.jsx)
+│   └── index.tsx     página principal (equivalente ao App.jsx)
+└── styles.css        estilos globais (equivalente ao global.css)
 ```
 
 ## Como executar
