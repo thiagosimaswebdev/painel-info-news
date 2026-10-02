@@ -1,3 +1,4 @@
+import "./Header.css";
 import { Search } from "lucide-react";
 import { useState, type FormEvent } from "react";
 

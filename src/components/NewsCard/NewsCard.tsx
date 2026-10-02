@@ -1,3 +1,4 @@
+import "./NewsCard.css";
 import type { Article } from "@/lib/news.functions";
 import { Button } from "@/components/ui/button";
 

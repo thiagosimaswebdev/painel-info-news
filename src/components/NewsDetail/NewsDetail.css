@@ -1,0 +1,3 @@
+/* Leitura detalhada da notícia */
+.news-detail { max-width: 48rem; margin-inline: auto; animation: news-detail-in 0.3s ease; }
+@keyframes news-detail-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }

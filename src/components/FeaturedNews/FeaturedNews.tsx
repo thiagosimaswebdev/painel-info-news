@@ -1,3 +1,4 @@
+import "./FeaturedNews.css";
 import { ArrowRight, CalendarDays } from "lucide-react";
 
 import { Button } from "@/components/ui/button";

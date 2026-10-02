@@ -1,3 +1,4 @@
+import "./NewsDetail.css";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 import type { Article } from "@/lib/news.functions";
 

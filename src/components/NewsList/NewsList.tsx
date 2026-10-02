@@ -1,8 +1,9 @@
+import "./NewsList.css";
 import type { Article } from "@/lib/news.functions";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { NewsCard } from "./NewsCard";
+import { NewsCard } from "@/components/NewsCard/NewsCard";
 
 export const NEWS_PER_PAGE = 6;
 
