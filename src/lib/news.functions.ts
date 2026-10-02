@@ -18,65 +18,73 @@ const inputSchema = z.object({
 });
 
 type RawArticle = {
+  article_id?: string | null;
   title?: string | null;
   description?: string | null;
   content?: string | null;
-  url?: string | null;
-  urlToImage?: string | null;
-  publishedAt?: string | null;
-  source?: { name?: string | null } | null;
+  link?: string | null;
+  image_url?: string | null;
+  pubDate?: string | null;
+  source_name?: string | null;
+  source_id?: string | null;
 };
 
+const PAID_ONLY = /ONLY AVAILABLE/i;
+const CACHE_MS = 10 * 60 * 1000;
+const cache = new Map<string, { at: number; data: Article[] }>();
+
 function normalize(list: RawArticle[]): Article[] {
+  const seen = new Set<string>();
   return list
-    .filter((a) => a?.title && a.title !== "[Removed]" && a.url)
+    .filter((a) => a?.title && a.link)
+    .filter((a) => {
+      const key = (a.title as string).toLowerCase();
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    })
     .map((a) => ({
-      id: a.url as string,
+      id: a.article_id ?? (a.link as string),
       title: a.title as string,
-      description: a.description ?? null,
-      content: a.content ?? null,
-      url: a.url as string,
-      image: a.urlToImage ?? null,
-      source: a.source?.name ?? "Fonte desconhecida",
-      publishedAt: a.publishedAt ?? null,
+      description: a.description && !PAID_ONLY.test(a.description) ? a.description : null,
+      content: a.content && !PAID_ONLY.test(a.content) ? a.content : null,
+      url: a.link as string,
+      image: a.image_url ?? null,
+      source: a.source_name ?? a.source_id ?? "Fonte desconhecida",
+      publishedAt: a.pubDate ? `${a.pubDate.replace(" ", "T")}Z` : null,
     }));
 }
 
 export const fetchNews = createServerFn({ method: "GET" })
   .inputValidator((data: unknown) => inputSchema.parse(data))
   .handler(async ({ data }): Promise<Article[]> => {
-    const apiKey = process.env["NEWSAPI_KEY"];
-    if (!apiKey) throw new Error("Chave da NewsAPI não configurada.");
+    const apiKey = process.env["NEWSDATA_KEY"];
+    if (!apiKey) throw new Error("Chave da NewsData.io não configurada.");
 
-    const call = async (url: string) => {
-      const res = await fetch(url, { headers: { "X-Api-Key": apiKey } });
-      const json = (await res.json()) as {
-        status?: string;
-        message?: string;
-        articles?: RawArticle[];
-      };
-      if (!res.ok || json.status !== "ok") {
-        throw new Error(json.message || "Não foi possível carregar as notícias.");
-      }
-      return normalize(json.articles ?? []);
+    const q = data.q.trim();
+    const cacheKey = `${data.category}|${q.toLowerCase()}`;
+    const hit = cache.get(cacheKey);
+    if (hit && Date.now() - hit.at < CACHE_MS) return hit.data;
+
+    const params = new URLSearchParams({
+      apikey: apiKey,
+      country: "br",
+      language: "pt",
+      category: data.category,
+    });
+    if (q) params.set("q", q);
+
+    const res = await fetch(`https://newsdata.io/api/1/latest?${params}`);
+    const json = (await res.json()) as {
+      status?: string;
+      results?: RawArticle[] | { message?: string };
     };
-
-    const params = new URLSearchParams({ pageSize: "24", language: "pt" });
-    if (data.q.trim()) params.set("q", data.q.trim());
-
-    const headlines = new URLSearchParams(params);
-    headlines.delete("language");
-    headlines.set("country", "br");
-    headlines.set("category", data.category);
-
-    let articles = await call(`https://newsapi.org/v2/top-headlines?${headlines}`);
-
-    if (articles.length === 0) {
-      const everything = new URLSearchParams(params);
-      everything.set("sortBy", "publishedAt");
-      if (!everything.get("q")) everything.set("q", data.category);
-      articles = await call(`https://newsapi.org/v2/everything?${everything}`);
+    if (!res.ok || json.status !== "success" || !Array.isArray(json.results)) {
+      const msg = !Array.isArray(json.results) ? json.results?.message : undefined;
+      throw new Error(msg || "Não foi possível carregar as notícias.");
     }
 
+    const articles = normalize(json.results);
+    cache.set(cacheKey, { at: Date.now(), data: articles });
     return articles;
   });

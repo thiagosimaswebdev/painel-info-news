@@ -6,7 +6,7 @@ export function Footer() {
         <p className="font-display text-base font-semibold text-foreground">
           Painel Interativo de Notícias
         </p>
-        <p className="mt-1">Dados fornecidos pela NewsAPI · {new Date().getFullYear()}</p>
+        <p className="mt-1">Dados fornecidos pela NewsData.io · {new Date().getFullYear()}</p>
       </div>
     </footer>
   );

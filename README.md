@@ -17,7 +17,7 @@ Oferecer um painel limpo e responsivo que exibe notícias em tempo real, com fil
 - **Lucide React** (ícones)
 
 ## API utilizada
-[NewsAPI](https://newsapi.org) — endpoint `https://newsapi.org/v2/top-headlines` (parâmetros `country=br`, `category`, `q`), com fallback para `/v2/everything` quando não há manchetes. A chamada é feita no servidor para proteger a chave e evitar bloqueios de CORS.
+[NewsData.io](https://newsdata.io) — endpoint `https://newsdata.io/api/1/latest` (parâmetros `country=br`, `language=pt`, `category`, `q`). Os resultados ficam guardados por 10 minutos para economizar buscas. A chamada é feita no servidor para proteger a chave e evitar bloqueios de CORS.
 
 ## Principais funcionalidades
 - Notícia principal em destaque, já aberta na tela inicial, com botão **Ler mais**
@@ -40,7 +40,7 @@ src/
 │   ├── NewsCard/     NewsCard.tsx + NewsCard.css
 │   ├── NewsDetail/   NewsDetail.tsx + NewsDetail.css
 │   └── ui/           componentes de interface reutilizáveis
-├── lib/news.functions.ts   busca na NewsAPI (função de servidor)
+├── lib/news.functions.ts   busca na NewsData.io (função de servidor)
 ├── routes/
 │   ├── __root.tsx    layout raiz (equivalente ao main.jsx)
 │   └── index.tsx     página principal (equivalente ao App.jsx)
@@ -56,9 +56,9 @@ cd painel-interativo-de-noticias
 npm install
 ```
 
-Crie um arquivo `.env` na raiz com sua chave gratuita da NewsAPI:
+Crie um arquivo `.env` na raiz com sua chave gratuita da NewsData.io:
 ```
-NEWSAPI_KEY=sua_chave_aqui
+NEWSDATA_KEY=sua_chave_aqui
 ```
 
 Rode em desenvolvimento:
@@ -71,4 +71,4 @@ Acesse `http://localhost:8080`. Para gerar a versão de produção: `npm run bui
 🔗 _adicione aqui o link da aplicação publicada_
 
 ## Uso de Inteligência Artificial
-Este projeto foi desenvolvido com apoio da plataforma **Lovable**, uma ferramenta de IA para criação de aplicações web. A IA foi utilizada para gerar a estrutura inicial, os componentes, a integração com a NewsAPI e os ajustes de layout (destaque e paginação), a partir de prompts escritos pelo autor. Todo o resultado foi revisado, testado e validado manualmente.
+Este projeto foi desenvolvido com apoio da plataforma **Lovable**, uma ferramenta de IA para criação de aplicações web. A IA foi utilizada para gerar a estrutura inicial, os componentes, a integração com a API de notícias e os ajustes de layout (destaque e paginação), a partir de prompts escritos pelo autor. Todo o resultado foi revisado, testado e validado manualmente.
