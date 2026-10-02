@@ -39,6 +39,10 @@ function Index() {
   const { data, isPending, error } = useQuery({
     queryKey: ["news", category, query],
     queryFn: () => getNews({ data: { category, q: query } }),
+    staleTime: 10 * 60 * 1000,
+    gcTime: 30 * 60 * 1000,
+    refetchOnWindowFocus: false,
+    retry: 1,
   });
 
   return (
